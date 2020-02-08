@@ -14,7 +14,9 @@
         <div class="container">
             <div class="row">
                 <div class="left-form col-md-5 col-12">
-                    <form class="form-horizontal form-napthengay" role="form" method="post" action="transaction.php">
+                    <form class="form-horizontal form-napthengay" role="form" method="post"
+                          action="{{ url('create') }}">
+                        @csrf
                         <h3 style="text-align: center">Nạp thẻ để nhận dàn đề</h3>
                         <p style="color: red">Chỉ được dùng thẻ Viettel có mệnh giá 200.000đ</p>
                         <div class="form-group">
@@ -36,21 +38,55 @@
                         <div class="form-group">
                             <label for="txtpin" class="col-lg-2 control-label">Mã thẻ</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="txtpin" name="txtpin" placeholder="Mã thẻ" data-toggle="tooltip" data-title="Mã số sau lớp bạc mỏng"/>
+                                <input type="text" class="form-control" id="txtpin" name="pin" placeholder="Mã thẻ"
+                                       data-toggle="tooltip" data-title="Mã số sau lớp bạc mỏng"/>
                             </div>
                         </div>
+                        @if($errors->has('pin'))
+                            <span class="errors">
+                            {{ $errors->first('pin') }}
+                        </span>
+                        @endif
                         <div class="form-group">
                             <label for="txtseri" class="col-lg-2 control-label">Số seri</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="txtseri" name="txtseri" placeholder="Số seri" data-toggle="tooltip" data-title="Mã seri nằm sau thẻ">
+                                <input type="text" class="form-control" id="txtseri" name="seri"
+                                       placeholder="Số seri" data-toggle="tooltip" data-title="Mã seri nằm sau thẻ">
                             </div>
                         </div>
-
+                        @if($errors->has('seri'))
+                            <span class="errors">
+                            {{ $errors->first('seri') }}
+                        </span>
+                        @endif
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button type="submit" class="btn btn-primary" name="napthe">Nạp thẻ</button>
                             </div>
                         </div>
+                        @if(session()->has('error'))
+                            <h4 style="color: red">
+                                {{ $result['msg'] }}
+                            </h4>
+                        @endif
+                        @if(session()->has('success'))
+                            <h4 style="color: green">
+                                Nạp thẻ thành công
+                            </h4>
+                            <h4 style="color: green">Dàn đề hôm nay là</h4>
+                            <table class="table table-bordered table-striped list-dande">
+                                <tr>
+                                    <th>Ngày</th>
+                                    <th>Dàn lô</th>
+                                    <th>Dàn đề</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ date('d-m-Y', strtotime($dande_today->created_at)) }}</td>
+                                    <td>{{ $dande_today->so_lo }}</td>
+                                    <td>{{ $dande_today->so_de }}</td>
+                                </tr>
+                            </table>
+                        @endif
                     </form>
                 </div>
                 <div class="right-form col-md-7 col-12">
@@ -59,248 +95,18 @@
                             <th>Ngày</th>
                             <th>Dàn lô</th>
                             <th>Dàn đề</th>
-                            <th>Kết quả</th>
+                            <th>Kết quả lô</th>
+                            <th>Kết quả đề</th>
                         </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>04/01/2020</td>
-                            <td>23;34;52;53</td>
-                            <td>23;34;52;53</td>
-                            <td>23</td>
-                        </tr>
+                        @foreach($dandes AS $dande)
+                            <tr>
+                                <td>{{ date('d-m-Y', strtotime($dande->created_at)) }}</td>
+                                <td>{{ $dande->so_lo }}</td>
+                                <td>{{ $dande->so_de }}</td>
+                                <td>{{ $dande->result_lo }}</td>
+                                <td>{{ $dande->result_de }}</td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

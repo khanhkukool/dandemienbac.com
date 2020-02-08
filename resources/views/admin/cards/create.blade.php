@@ -3,9 +3,17 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-        <h1>Thêm mới sản phẩm</h1>
+        <h1>Thêm thẻ mới</h1>
+        @if(session()->has('error'))
+            <h3 style="color: red">
+                {{ $result['msg'] }}
+            </h3>
+        @endif
         <form method="post" action="{{ url('admin/cards/store') }}" enctype="multipart/form-data">
             @csrf
+{{--            @if($errors->has('error'))--}}
+{{--            echo '<script>alert("' . $error . '!");</script>';}--}}
+{{--            @endif--}}
             <div class="form-group">
                 <label>Pin</label>
                 <input type="number" name="pin" value="{{ old('pin') }}" class="form-control"/>

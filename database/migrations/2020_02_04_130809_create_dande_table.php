@@ -17,8 +17,8 @@ class CreateDandeTable extends Migration
             $table->bigIncrements('id');
             $table->string('so_lo');
             $table->string('so_de');
-            $table->string('result_lo');
-            $table->string('result_de');
+            $table->string('result_lo')->nullable();
+            $table->string('result_de')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,11 @@
     <!-- Main content -->
     <section class="content">
         <h1>Danh sách nạp thẻ</h1>
+        @if(session()->has('success'))
+            <h3 style="color: green">
+                Nạp thẻ thành công
+            </h3>
+        @endif
         <a href="{{ url('/admin/cards/create') }}" class="btn btn-primary">
             Thêm mới
         </a>
@@ -14,7 +19,6 @@
                 <th>Seri</th>
                 <th>Mệnh giá</th>
                 <th>Time</th>
-                <th></th>
             </tr>
             @foreach($cards AS $card)
                 <tr>
@@ -23,11 +27,6 @@
                     <td>{{ $card->seri }}</td>
                     <td>{{ $card->card_value }}</td>
                     <td>{{  date('H:i:s d-m-Y', strtotime($card->created_at)) }}</td>
-                    <td>
-                        <a href="{{ url('admin/cards/edit/' . $card->id) }}">
-                            <i class="fa fa-pencil-alt"></i> &nbsp;
-                        </a>
-                    </td>
                 </tr>
             @endforeach
         </table>

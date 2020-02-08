@@ -1,10 +1,10 @@
 @extends('admin.layouts.main')
-@section('title','cards')
+@section('title','dàn đề')
 @section('content')
     <!-- Main content -->
     <section class="content">
-        <h1>Danh sách banner</h1>
-        <a href="{{ url('/admin/cards/create') }}" class="btn btn-primary">
+        <h1>Dàn đề</h1>
+        <a href="{{ url('/admin/dande/create') }}" class="btn btn-primary">
             Thêm mới
         </a>
         <table class="table table-bordered table-striped">
@@ -15,27 +15,46 @@
                 <th>Kết quả lô</th>
                 <th>Kết quả đề</th>
                 <th>Time</th>
-                <th></th>
+                <th>Chỉnh sửa</th>
             </tr>
             @foreach($dandes AS $dande)
                 <tr>
                     <td>{{ $dande->id }}</td>
                     <td>{{ $dande->so_lo }}</td>
                     <td>{{ $dande->so_de }}</td>
-                    <td>{{ $dande->result_lo }}</td>
-                    <td>{{ $dande->result_de }}</td>
-                    <td>{{  date('d-m-Y H:i:s', strtotime($dande->created_at)) }}</td>
+                    @php
+                        $so_lo_array = explode(";", $dande->so_lo);
+                    @endphp
                     <td>
-                        <a href="{{ url('backend/users/show/' . $dande->id) }}">
-                            <i class="fa fa-eye"></i>
+                        @php
+                            foreach($so_lo_array AS $value){
+                                if(trim($dande->result_lo) == trim($value)){
+                                    echo $value;
+                                }
+                             }
+                        @endphp
+                    </td>
+                    @php
+                        $so_de_array = explode(";", $dande->so_de);
+                    @endphp
+                    <td>
+                        @php
+                            foreach($so_de_array AS $value){
+                                if(trim($dande->result_de) == trim($value)){
+                                    echo $value;
+                                }
+                             }
+                        @endphp
+                    </td>
+                    <td>{{  date('d-m-Y', strtotime($dande->created_at)) }}</td>
+                    <td>
+                        @if($dande->status == 0)
+                        <a href="{{ url('admin/dande/edit/' . $dande->id) }}">
+                            <i class="fa fa-pencil-alt"></i>
                         </a>
-                        <a href="{{ url('backend/users/eidt/' . $dande->id) }}">
-                            <i class="fa fa-pencil-alt"></i> &nbsp;
-                        </a>
-                        <a href="{{ url('backend/users/delete/' . $dande->id) }}"
-                           onclick="return confirm('Bạn có muốn xóa hay ko?')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
+                        @else
+                        <p style="color: green">Đã chỉnh sửa</p>
+                        @endif
                     </td>
                 </tr>
             @endforeach

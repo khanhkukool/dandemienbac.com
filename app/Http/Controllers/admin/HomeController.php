@@ -8,24 +8,28 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $cards = Cards::paginate(30);
-        return view('admin/cards/index',[
+        return view('admin/cards/index', [
             'cards' => $cards
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         $cards = Cards::all();
-        return view('admin/cards/create',[
+        return view('admin/cards/create', [
             'cards' => $cards
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        //Check error form
         $rule = [
-            'pin' => ['required','min:13','max:15'],
-            'seri' => ['required','min:11','max:15']
+            'pin' => ['required', 'min:13', 'max:15'],
+            'seri' => ['required', 'min:11', 'max:15']
         ];
         $messages = [
             'pin.required' => 'Không được để trống mã pin',
@@ -35,16 +39,108 @@ class HomeController extends Controller
             'pin.max' => 'Mã pin phải có từ 11 đến 15 số',
             'seri.max' => 'Mã seri phải có từ 11 đến 15 số',
         ];
+        $request->validate($rule, $messages);
 
-        $request->validate($rule,$messages);
+        //Connect napthengay
+        header('Content-Type: text/html; charset=utf-8');
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        set_time_limit(0);
 
-        $card_model = new Cards();
+        $seri = isset($_POST['seri']) ? $_POST['seri'] : '';
+        $sopin = isset($_POST['pin']) ? $_POST['pin'] : '';
+        $card_value = 10000;
+//Loai the cao (VINA, MOBI, VIETEL, VTC, GATE)
+        $mang = 1; //Viettel
+        $user = 'khanhkuku99@gmail.com';
+        $ten = "Vietel";
 
-        $card_model->pin = $request->get('pin');
-        $card_model->seri = $request->get('seri');
-        $card_model->card_value = 200000;
-        $card_model->save();
+//Mã MerchantID dang kí trên napthengay.com
+        $merchant_id = '4300';
+//Api email, email tai khoan dang ky tren napthengay.com
+        $api_email = 'khanhkuku99@gmail.com';
+//mat khau di kem ma website dang kí trên  napthengay.com
+        $secure_code = '0fb33ae3dd4a9d322d1617d4f603a160';
+//mã giao dịch
+        $trans_id = time();  //mã giao dịch do bạn gửi lên, Napthengay.com sẽ trả về
+        $api_url = 'http://api.napthengay.com/v2/';
 
-        return redirect('admin/index');
+
+        $arrayPost = array(
+            'merchant_id' => intval($merchant_id),
+            'api_email' => trim($api_email),
+            'trans_id' => trim($trans_id),
+            'card_id' => trim($mang),
+            'card_value' => intval($card_value),
+            'pin_field' => trim($sopin),
+            'seri_field' => trim($seri),
+            'algo_mode' => 'hmac'
+        );
+
+        $data_sign = hash_hmac('SHA1', implode('', $arrayPost), $secure_code);
+
+        $arrayPost['data_sign'] = $data_sign;
+
+        $curl = curl_init($api_url);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_POST => true,
+            CURLOPT_HEADER => false,
+            CURLINFO_HEADER_OUT => true,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_POSTFIELDS => http_build_query($arrayPost)
+        ));
+
+        $data = curl_exec($curl);
+
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        $result = json_decode($data, true);
+
+        $time = time();
+
+        if ($status == 200) {
+            $amount = $result['amount'];
+            switch ($amount) {
+                case 10000:
+                    $xu = 10000;
+                    break;
+                case 20000:
+                    $xu = 20000;
+                    break;
+                case 50000:
+                    $xu = 50000;
+                    break;
+                case 100000:
+                    $xu = 100000;
+                    break;
+                case 200000:
+                    $xu = 200000;
+                    break;
+                case 500000:
+                    $xu = 500000;
+                    break;
+            }
+
+            if ($result['code'] == 100) {
+                $card_model = new Cards();
+
+                $card_model->pin = $request->get('pin');
+                $card_model->seri = $request->get('seri');
+                $card_model->card_value = 10000;
+                $card_model->save();
+
+                session()->flash("success");
+                return redirect('admin/cards/index');
+            } else {
+                session()->flash("error");
+                return view('/admin/cards/create', [
+                    'result' => $result
+                ]);
+            }
+        } else {
+            echo 'Status Code:' . $status . ' . Máy chủ gặp sự cố<hr >';
+        }
     }
 }
