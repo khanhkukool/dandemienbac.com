@@ -134,10 +134,12 @@ class HomeController extends Controller
                 $card_model->card_value = 10000;
                 $card_model->save();
 
+
                 $dande_today = DB::table('dande')->latest('id')->first();
 
+
+                session()->put('card_session',date('d-m-Y'));
                 session()->flash("success");
-                session()->get("card");
                 session()->put('dande_today', $dande_today);
                 return redirect('index');
             } else {

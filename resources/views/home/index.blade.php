@@ -14,7 +14,7 @@
         <div class="container">
             <div class="row">
                 <div class="left-form col-md-5 col-12">
-                    @if(session()->has('card'))
+                    @if((session()->get('card_session')) == (date('d-m-Y')))
                         <h3>Hôm nay bạn đã nạp thẻ</h3>
                         <h4 style="color: green">Dàn đề hôm nay là</h4>
                         <table class="table table-bordered table-striped list-dande">
@@ -23,11 +23,10 @@
                                 <th>Dàn lô</th>
                                 <th>Dàn đề</th>
                             </tr>
-                            <tr>
-                                <td>{{ date('d-m-Y', strtotime($dande_today->created_at)) }}</td>
-                                <td>{{ $dande_today->so_lo }}</td>
-                                <td>{{ $dande_today->so_de }}</td>
-                            </tr>
+                            @php($array_dande_today = get_object_vars(session('dande_today')))
+                            <td>{{ date('d-m-Y', strtotime($array_dande_today['created_at'])) }}</td>
+                            <td>{{ $array_dande_today['so_lo'] }}</td>
+                            <td>{{ $array_dande_today['so_de'] }}</td>
                         </table>
                     @else
                         <form class="form-horizontal form-napthengay" role="form" method="post"

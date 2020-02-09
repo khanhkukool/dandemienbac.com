@@ -138,6 +138,7 @@ class HomeController extends Controller
                 //bt lỗi là do nó chạy vào đây à e.
                 session()->flash("error");
                 session()->put('result', $result);
+                session()->put('date',date('d-m-y'));
                 return redirect('admin/cards/create');
                 //do dòng này, nếu e return về view, thì nó hiểu là e đang gọi cái view của create vào cái phương thúc store này
                 //dẫn đến khi e submit lại form thì sẽ là submit form của method store nr, ko phải phải của method create nữa
