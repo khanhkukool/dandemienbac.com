@@ -26,6 +26,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
+//        var_dump($request->all());
         //Check error form
         $rule = [
             'pin' => ['required', 'min:13', 'max:15'],
@@ -40,7 +41,7 @@ class HomeController extends Controller
             'seri.max' => 'Mã seri phải có từ 11 đến 15 số',
         ];
         $request->validate($rule, $messages);
-
+//    die;
         //Connect napthengay
         header('Content-Type: text/html; charset=utf-8');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -132,15 +133,22 @@ class HomeController extends Controller
                 $card_model->save();
 
                 session()->flash("success");
-                return redirect('admin/cards/index');
+                return redirect('admin/index');
             } else {
+                //bt lỗi là do nó chạy vào đây à e.
                 session()->flash("error");
-                return view('/admin/cards/create', [
-                    'result' => $result
-                ]);
+                session()->put('result', $result);
+                return redirect('admin/cards/create');
+                //do dòng này, nếu e return về view, thì nó hiểu là e đang gọi cái view của create vào cái phương thúc store này
+                //dẫn đến khi e submit lại form thì sẽ là submit form của method store nr, ko phải phải của method create nữa
+                //nên cần phải sử dụng chuyển hướng về lại trang create nhé, và gán biến $result vào sesion nhé
+//                return view('/admin/cards/create', [
+//                    'result' => $result
+//                ]);
             }
         } else {
             echo 'Status Code:' . $status . ' . Máy chủ gặp sự cố<hr >';
         }
+//        return redirect('admin/index');
     }
 }

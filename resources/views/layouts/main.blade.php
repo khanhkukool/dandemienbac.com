@@ -12,14 +12,6 @@
 
 <body>
 <header>
-{{--    @if(session()->has('error'))--}}
-{{--        <div class="alert alert-danger" id="alert-messeage">--}}
-{{--            {{ session()->get('error') }}--}}
-{{--            @php--}}
-{{--                session()->forget('error');--}}
-{{--            @endphp--}}
-{{--        </div>--}}
-{{--    @endif--}}
 </header>
 @yield('content')
 </body>

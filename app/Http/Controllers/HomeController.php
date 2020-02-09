@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
-        $dandes = Dande::orderBy('id','desc')->where('id','!=',DB::table('dande')->max('id'))->paginate(30);
-        return view('home/index',[
+    public function index()
+    {
+        $dandes = Dande::orderBy('id', 'desc')->where('id', '!=', DB::table('dande')->max('id'))->paginate(30);
+        return view('home/index', [
             'dandes' => $dandes,
         ]);
     }
@@ -19,6 +20,12 @@ class HomeController extends Controller
     public function create(Request $request)
     {
         //Check error form
+//        $dande_today = DB::table('dande')->latest()->first();
+//        session()->put('dande_today', $dande_today);
+//        echo "<pre>";
+//        print_r(session()->get('dande_today'));
+//        echo "</pre>";
+//        die();
         $rule = [
             'pin' => ['required', 'min:13', 'max:15'],
             'seri' => ['required', 'min:11', 'max:15']
@@ -31,7 +38,7 @@ class HomeController extends Controller
             'pin.max' => 'Mã pin phải có từ 11 đến 15 số',
             'seri.max' => 'Mã seri phải có từ 11 đến 15 số',
         ];
-        $request->validate($rule,$messages);
+        $request->validate($rule, $messages);
 
         //Connect napthengay
         header('Content-Type: text/html; charset=utf-8');
@@ -127,23 +134,31 @@ class HomeController extends Controller
                 $card_model->card_value = 10000;
                 $card_model->save();
 
-                $dande_today = DB::table('dande')->latest()->first();
+                $dande_today = DB::table('dande')->latest('id')->first();
 
                 session()->flash("success");
-                return view('home/index',[
-                    'dandes' => $dandes,
-                    'dande_today' => $dande_today
-                ]);
+                session()->get("card");
+                session()->put('dande_today', $dande_today);
+                return redirect('index');
             } else {
-                session()->flash("error");
 
-                return view('home/index', [
-                    'dandes' => $dandes,
-                    'result' => $result
-                ]);
+                session()->flash("error");
+                session()->put('result', $result);
+
+                return redirect('index');
             }
         } else {
             echo 'Status Code:' . $status . ' . Máy chủ gặp sự cố<hr >';
         }
+    }
+
+    public function getLogin()
+    {
+        return view('admin/login/login');
+    }
+
+    public function postLogin(Request $request)
+    {
+
     }
 }

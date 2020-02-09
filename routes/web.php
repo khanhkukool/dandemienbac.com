@@ -38,3 +38,7 @@ Route::group(['middleware' => ['web']], function(){
         Session::put('Check');
      });
 });
+
+//Login
+Route::get('login','HomeController@getLogin');
+Route::post('login','HomeController@postLogin');

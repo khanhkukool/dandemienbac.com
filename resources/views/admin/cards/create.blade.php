@@ -6,7 +6,7 @@
         <h1>Thêm thẻ mới</h1>
         @if(session()->has('error'))
             <h3 style="color: red">
-                {{ $result['msg'] }}
+                {{ session()->get('result.msg') }}
             </h3>
         @endif
         <form method="post" action="{{ url('admin/cards/store') }}" enctype="multipart/form-data">
