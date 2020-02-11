@@ -9,11 +9,16 @@
             </div>
         </div>
     </div>
-
+    <div class="login btn btn-primary">
+        <a href="{{ url('/login') }}">
+            <p>Đăng nhập</p>
+        </a>
+    </div>
     <div class="content">
         <div class="container">
             <div class="row">
                 <div class="left-form col-md-5 col-12">
+                    @php($dande_time_today = get_object_vars(session('dande_time_today')))
                     @if((session()->get('card_session')) == (date('d-m-Y')))
                         <h3>Hôm nay bạn đã nạp thẻ</h3>
                         <h4 style="color: green">Dàn đề hôm nay là</h4>
@@ -28,6 +33,8 @@
                             <td>{{ $array_dande_today['so_lo'] }}</td>
                             <td>{{ $array_dande_today['so_de'] }}</td>
                         </table>
+                    @elseif((date('d-m-Y', strtotime($dande_time_today['created_at']))) != (date('d-m-Y')))
+                        <h3>Hôm nay chưa có dàn đề</h3>
                     @else
                         <form class="form-horizontal form-napthengay" role="form" method="post"
                               action="{{ url('create') }}">

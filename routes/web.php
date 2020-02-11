@@ -28,6 +28,7 @@ Route::get('admin/dande/create','admin\DandeController@create');
 Route::post('admin/dande/store','admin\DandeController@store');
 Route::get('admin/dande/edit/{id}','admin\DandeController@edit');
 Route::post('admin/dande/update/{id}','admin\DandeController@update');
+Route::get('admin/dande/update_result','admin\DandeController@updateResult');
 
 //frontend
 Route::get('/index','HomeController@index');

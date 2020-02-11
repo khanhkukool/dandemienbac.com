@@ -12,9 +12,12 @@ class HomeController extends Controller
     public function index()
     {
         $dandes = Dande::orderBy('id', 'desc')->where('id', '!=', DB::table('dande')->max('id'))->paginate(30);
+        $dande_time_today = DB::table('dande')->latest('id')->first();
+        session()->put('dande_time_today', $dande_time_today);
         return view('home/index', [
             'dandes' => $dandes,
         ]);
+
     }
 
     public function create(Request $request)

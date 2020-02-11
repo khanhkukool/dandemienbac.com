@@ -7,6 +7,9 @@
         <a href="{{ url('/admin/dande/create') }}" class="btn btn-primary">
             Thêm mới
         </a>
+        <a href="{{ url('/admin/dande/update_result') }}" class="btn btn-primary">
+            Cập nhật kết quả
+        </a>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>ID</th>

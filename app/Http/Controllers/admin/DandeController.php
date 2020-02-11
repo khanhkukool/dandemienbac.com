@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Dande;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+url('storage/simple_html_dom.blade.php');
 
 class DandeController extends Controller
 {
@@ -61,5 +62,13 @@ class DandeController extends Controller
         $dande->save();
 
         return redirect('admin/dande/index');
+    }
+
+    public function updateResult(){
+        $html = file_get_html('https://ketqua.net/');
+//        $find = $html->find('div.color333 table tbody tr td[id=rs_0_0]');
+//        echo $find;
+//        echo "<br>";
+        echo $html;
     }
 }
