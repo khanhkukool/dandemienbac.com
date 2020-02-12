@@ -28,18 +28,17 @@ Route::get('admin/dande/create','admin\DandeController@create');
 Route::post('admin/dande/store','admin\DandeController@store');
 Route::get('admin/dande/edit/{id}','admin\DandeController@edit');
 Route::post('admin/dande/update/{id}','admin\DandeController@update');
-Route::get('admin/dande/update_result','admin\DandeController@updateResult');
+Route::get('admin/dande/update_result/{id}','admin\DandeController@updateResult');
 
 //frontend
 Route::get('/index','HomeController@index');
 Route::post('/create','HomeController@create');
 
-Route::group(['middleware' => ['web']], function(){
-     Route::get('Session',function (){
-        Session::put('Check');
-     });
-});
+//Route::get('/', function () {
+//    return view('admin/index');
+//})->middleware('auth');
 
 //Login
 Route::get('login','HomeController@getLogin');
 Route::post('login','HomeController@postLogin');
+Route::get('logout','HomeController@postLogout');

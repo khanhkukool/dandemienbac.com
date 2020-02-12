@@ -14,7 +14,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/_all-skins.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.css') }}"/>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -29,8 +29,13 @@
             <span class="logo-lg"><b>Admin</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top">
-
+        <nav class="navbar navbar-static-top menu-user">
+            <a href="{{ url('index') }}" class="logo">
+                <span>Trang chủ</span>
+            </a>
+            <a href="{{ url('logout') }}" class="logo">
+                <span>Đăng xuất</span>
+            </a>
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
@@ -75,7 +80,7 @@
                 <li class="active">Dashboard</li>
             </ol>
         </section>
-    @yield('content')
+        @yield('content')
 
     </div>
     <!-- /.content-wrapper -->

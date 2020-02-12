@@ -18,14 +18,6 @@
                 <textarea name="so_de" class="form-control">{{ old('so_de') ? old('so_de') : $dandes->so_de }}</textarea>
             </div>
             <div class="form-group">
-                <label>Kết quả lô</label>
-                <textarea name="result_lo" class="form-control">{{ old('result_lo') ? old('result_lo') : $dandes->result_lo }}</textarea>
-            </div>
-            <div class="form-group">
-                <label>Kết quả đề</label>
-                <textarea name="result_de" class="form-control">{{ old('result_de') ? old('result_de') : $dandes->result_de }}</textarea>
-            </div>
-            <div class="form-group">
                 <input type="submit" class="btn btn-primary" name="submit" value="Lưu"/>
                 <a class="btn btn-secondary" href="{{ url('/admin/dande/index') }}">
                     Quay lại

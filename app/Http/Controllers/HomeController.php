@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cards;
 use App\Dande;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -164,6 +165,18 @@ class HomeController extends Controller
 
     public function postLogin(Request $request)
     {
+        $credentials = array('email'=>$request->email,'password'=>$request->password);
+        if(Auth::attempt($credentials)){
+            return redirect('admin/index');
+        }
+        else{
+            session()->flash("error_login");
+            return redirect('login');
+        }
+    }
 
+    public function postLogout(){
+        Auth::logout();
+        return redirect('index');
     }
 }

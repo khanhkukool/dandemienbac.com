@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $cards = Cards::paginate(30);
@@ -150,6 +154,5 @@ class HomeController extends Controller
         } else {
             echo 'Status Code:' . $status . ' . Máy chủ gặp sự cố<hr >';
         }
-//        return redirect('admin/index');
     }
 }

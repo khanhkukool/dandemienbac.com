@@ -9,9 +9,18 @@
                     </a>
                 </div>
                 <div class="login col-md-4 col-12">
-                    <a href="{{ url('/login') }}">
-                        <i class="fas fa-user"></i><span>  Đăng nhập</span>
-                    </a>
+                    @if(Auth::check())
+                        <a href="{{ url('/logout') }}">
+                            <i class="fas fa-user"></i><span>  Đăng xuất</span>
+                        </a>
+                        <a href="{{ url('/admin/index') }}">
+                            <i class="fas fa-user-shield"></i><span>  Trang quản trị</span>
+                        </a>
+                    @else
+                        <a href="{{ url('/login') }}">
+                            <i class="fas fa-user"></i><span>  Đăng nhập</span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -122,8 +131,8 @@
                             <th>Ngày</th>
                             <th>Dàn lô</th>
                             <th>Dàn đề</th>
-                            <th>Kết quả lô</th>
-                            <th>Kết quả đề</th>
+                            <th>Kết quả lô trúng</th>
+                            <th>Kết quả đề trúng</th>
                         </tr>
                         @foreach($dandes AS $dande)
                             <tr>
