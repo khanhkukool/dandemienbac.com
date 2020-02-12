@@ -2,18 +2,21 @@
 @section('content')
     <div class="header">
         <div class="container">
-            <div class="header-logo">
-                <a class="logo" href="{{ url('/index') }}">
-                    <img src="{{ url('assets/images/logo-web-napthengay.png') }}" alt="">
-                </a>
+            <div class="row">
+                <div class="header-logo col-md-8 col-12">
+                    <a class="logo" href="{{ url('/index') }}">
+                        <img src="{{ url('assets/images/logo-web-napthengay.png') }}" alt="">
+                    </a>
+                </div>
+                <div class="login col-md-4 col-12">
+                    <a href="{{ url('/login') }}">
+                        <i class="fas fa-user"></i><span>  Đăng nhập</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="login btn btn-primary">
-        <a href="{{ url('/login') }}">
-            <p>Đăng nhập</p>
-        </a>
-    </div>
+
     <div class="content">
         <div class="container">
             <div class="row">

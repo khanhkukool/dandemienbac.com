@@ -25,6 +25,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" tyle="text/css" href ="{{ asset('/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" tyle="text/css" href ="{{ asset('/assets/css/all.min.css') }}">
     <!--===============================================================================================-->
 </head>
 <body>
@@ -34,7 +36,7 @@
             <form class="login100-form validate-form" action="" method="post">
                 @csrf
 					<span class="login100-form-title p-b-33">
-						Account Login
+						Đăng nhập
 					</span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -55,6 +57,12 @@
                     </button>
                 </div>
 
+                <br>
+                <div style="text-align: center">
+                    <a href="{{ url('index') }}">
+                        <i class="fas fa-arrow-left"></i><span>  Quay lại trang chủ</span>
+                    </a>
+                </div>
                 <div class="text-center p-t-45 p-b-4">
 						<span class="txt1">
 							Forgot
