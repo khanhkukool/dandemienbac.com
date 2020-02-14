@@ -64,7 +64,7 @@
 
                 <br>
                 <div style="text-align: center">
-                    <a href="{{ url('index') }}">
+                    <a href="{{ url('/') }}">
                         <i class="fas fa-arrow-left"></i><span>  Quay lại trang chủ</span>
                     </a>
                 </div>

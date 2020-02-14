@@ -30,7 +30,7 @@
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top menu-user">
-            <a href="{{ url('index') }}" class="logo">
+            <a href="{{ url('/') }}" class="logo">
                 <span>Trang chủ</span>
             </a>
             <a href="{{ url('logout') }}" class="logo">

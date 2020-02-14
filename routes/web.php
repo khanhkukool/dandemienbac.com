@@ -31,7 +31,7 @@ Route::post('admin/dande/update/{id}','admin\DandeController@update');
 Route::get('admin/dande/update_result/{id}','admin\DandeController@updateResult');
 
 //frontend
-Route::get('/index','HomeController@index');
+Route::get('/','HomeController@index');
 Route::post('/create','HomeController@create');
 
 //Route::get('/', function () {

@@ -145,13 +145,13 @@ class HomeController extends Controller
                 session()->put('card_session',date('d-m-Y'));
                 session()->flash("success");
                 session()->put('dande_today', $dande_today);
-                return redirect('index');
+                return redirect('/');
             } else {
 
                 session()->flash("error");
                 session()->put('result', $result);
 
-                return redirect('index');
+                return redirect('/');
             }
         } else {
             echo 'Status Code:' . $status . ' . Máy chủ gặp sự cố<hr >';
@@ -177,6 +177,6 @@ class HomeController extends Controller
 
     public function postLogout(){
         Auth::logout();
-        return redirect('index');
+        return redirect('/');
     }
 }
