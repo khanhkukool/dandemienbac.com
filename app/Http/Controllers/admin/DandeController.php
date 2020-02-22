@@ -6,6 +6,7 @@ use App\Dande;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use KubAT\PhpSimple\HtmlDomParser;
+use Illuminate\Support\Facades\DB;
 
 class DandeController extends Controller
 {
@@ -16,8 +17,10 @@ class DandeController extends Controller
     public function index()
     {
         $dandes = Dande::paginate(30);
+		$dande_time_today = DB::table('dande')->latest('id')->first();
         return view('/admin/dande/index', [
             'dandes' => $dandes,
+			'dande_time_today' => $dande_time_today
         ]);
     }
 
@@ -31,10 +34,25 @@ class DandeController extends Controller
 
     public function store(Request $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $dandes = Dande::all('created_at');
+        foreach ($dandes AS $value){
+            if((date('d-m-Y', strtotime($value->created_at))) == date('d-m-Y',strtotime($request->get('created_at')))){
+                $rule = [
+                    'created_at' => 'date_equals:'.$value
+                ];
+                $messages = [
+                    'created_at.date_equals' => 'Ngày này đã được tạo',
+                ];
+                $request->validate($rule, $messages);
+            }
+        }
+
         $dande_model = new Dande();
 
         $dande_model->so_lo = $request->get('so_lo');
         $dande_model->so_de = $request->get('so_de');
+        $dande_model->created_at = $request->get('created_at');
         $dande_model->status = 0;
         $dande_model->save();
 
@@ -143,16 +161,27 @@ class DandeController extends Controller
             }
         }
 
-        $dande->result_lo = $dande_result_lo;
+         if ($dande_result_lo == '') {
+            $dande->result_lo = "Trượt";
+        } else {
+            $dande->result_lo = $dande_result_lo;
+        }
 
         //update result_de
+		$dande_result_de = '';
         $so_de_array = explode(";", $dande->so_de);
 
         foreach ($so_de_array AS $value) {
-            if (substr($result_de,-2) == trim($value)) {
-                $dande->result_de = substr($result_de,-2);
+            if (substr($result_de, -2) == trim($value)) {
+                $dande_result_de = substr($result_de, -2);
                 break;
             }
+        }
+
+        if ($dande_result_de == '') {
+            $dande->result_de = "Trượt";
+        } else {
+            $dande->result_de = $dande_result_de;
         }
 
         $dande->save();

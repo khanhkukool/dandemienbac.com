@@ -30,12 +30,34 @@
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top menu-user">
-            <a href="{{ url('/') }}" class="logo">
-                <span>Trang chủ</span>
+            <a class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <i class="fas fa-bars"></i>
             </a>
-            <a href="{{ url('logout') }}" class="logo">
-                <span>Đăng xuất</span>
-            </a>
+            <div class="navbar-custom-menu">
+				<span class="hidden-xs">
+					<a href="{{ url('/') }}" class="logo">
+						<span>Trang chủ</span>
+					</a>
+					<a href="{{ url('logout') }}" class="logo">
+						<span>Đăng xuất</span>
+					</a>
+				</span>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <a href="{{ url('/') }}" class="logo">
+                                <span>Trang chủ</span>
+                            </a>
+                            <a href="{{ url('logout') }}" class="logo">
+                                <span>Đăng xuất</span>
+                            </a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->

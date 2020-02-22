@@ -11,5 +11,13 @@
 }
 
 .login{
+	text-align: center;
+}
 
+.header{
+    background: gray;
+}
+
+.user-menu{
+    color: white;
 }

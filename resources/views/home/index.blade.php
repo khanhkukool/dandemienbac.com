@@ -1,31 +1,6 @@
 @extends('layouts.main')
+@section('title','Trang chủ')
 @section('content')
-    <div class="header">
-        <div class="container">
-            <div class="row">
-                <div class="header-logo col-md-8 col-12">
-                    <a class="logo" href="{{ url('/') }}">
-                        <img src="{{ url('assets/images/logo-web-napthengay.png') }}" alt="">
-                    </a>
-                </div>
-                <div class="login col-md-4 col-12">
-                    @if(Auth::check())
-                        <a href="{{ url('/logout') }}">
-                            <i class="fas fa-user"></i><span>  Đăng xuất</span>
-                        </a>
-                        <a href="{{ url('/admin/index') }}">
-                            <i class="fas fa-user-shield"></i><span>  Trang quản trị</span>
-                        </a>
-                    @else
-                        <a href="{{ url('/login') }}">
-                            <i class="fas fa-user"></i><span>  Đăng nhập</span>
-                        </a>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="content">
         <div class="container">
             <div class="row">
@@ -53,7 +28,7 @@
                                   action="{{ url('create') }}">
                                 @csrf
                                 <h3 style="text-align: center">Nạp thẻ để nhận dàn đề</h3>
-                                <p style="color: red">Chỉ được dùng thẻ Viettel có mệnh giá 200.000đ</p>
+                                <p style="color: red">Chỉ được dùng thẻ Viettel có mệnh giá 20.000đ</p>
                                 <div class="form-group">
                                     <label for="txtpin" class="col-lg-2 control-label">Loại thẻ</label>
                                     <div class="col-lg-10">
@@ -66,7 +41,7 @@
                                     <label for="txtpin" class="col-lg-2 control-label">Mệnh giá</label>
                                     <div class="col-lg-10">
                                         <select class="form-control" name="card_value">
-                                            <option value="200000">200,000</option>
+                                            <option value="200000">20,000</option>
                                         </select>
                                     </div>
                                 </div>
@@ -141,8 +116,16 @@
                                 <td>{{ date('d-m-Y', strtotime($dande->created_at)) }}</td>
                                 <td>{{ $dande->so_lo }}</td>
                                 <td>{{ $dande->so_de }}</td>
-                                <td>{{ $dande->result_lo }}</td>
-                                <td>{{ $dande->result_de }}</td>
+								@if($dande->result_lo == 'Trượt')
+                                <td style="color:red">{{ $dande->result_lo }}</td>
+								@else
+								<td style="color:green">{{ $dande->result_lo }}</td>
+								@endif
+								@if($dande->result_de == 'Trượt')
+                                <td style="color:red">{{  $dande->result_de  }}</td>
+								@else
+								<td style="color:green">{{  $dande->result_de  }}</td>
+								@endif
                             </tr>
                         @endforeach
                     </table>

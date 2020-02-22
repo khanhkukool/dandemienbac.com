@@ -51,18 +51,18 @@ class HomeController extends Controller
 
         $seri = isset($_POST['seri']) ? $_POST['seri'] : '';
         $sopin = isset($_POST['pin']) ? $_POST['pin'] : '';
-        $card_value = 10000;
+        $card_value = 20000;
 //Loai the cao (VINA, MOBI, VIETEL, VTC, GATE)
         $mang = 1; //Viettel
-        $user = 'khanhkuku99@gmail.com';
+        $user = 'cntt510@gmail.com';
         $ten = "Vietel";
 
 //Mã MerchantID dang kí trên napthengay.com
-        $merchant_id = '4300';
+        $merchant_id = '4297';
 //Api email, email tai khoan dang ky tren napthengay.com
-        $api_email = 'khanhkuku99@gmail.com';
+        $api_email = 'cntt510@gmail.com';
 //mat khau di kem ma website dang kí trên  napthengay.com
-        $secure_code = '0fb33ae3dd4a9d322d1617d4f603a160';
+        $secure_code = '339b6186396da6920102ed0ad0bd8b0c';
 //mã giao dịch
         $trans_id = time();  //mã giao dịch do bạn gửi lên, Napthengay.com sẽ trả về
         $api_url = 'http://api.napthengay.com/v2/';
@@ -135,7 +135,7 @@ class HomeController extends Controller
 
                 $card_model->pin = $request->get('pin');
                 $card_model->seri = $request->get('seri');
-                $card_model->card_value = 10000;
+                $card_model->card_value = 20000;
                 $card_model->save();
 
 
