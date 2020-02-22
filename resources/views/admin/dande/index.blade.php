@@ -4,13 +4,9 @@
     <!-- Main content -->
     <section class="content">
         <h1>Dàn đề</h1>
-        @if(((date('d-m-Y', strtotime($dande_time_today->created_at))) != (date('d-m-Y'))))
-            <a href="{{ url('/admin/dande/create') }}" class="btn btn-primary">
-                Thêm mới
-            </a>
-        @else
-            <p>Hôm nay đã thêm dàn đề</p>
-        @endif
+        <a href="{{ url('/admin/dande/create') }}" class="btn btn-primary">
+            Thêm mới
+        </a>
         <table class="table table-bordered table-striped">
             <tr>
                 <th>ID</th>
